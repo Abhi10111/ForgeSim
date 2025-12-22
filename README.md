@@ -1,11 +1,5 @@
-ForgeSim is a backend platform that-
-
-Accepts test/simulation jobs
-
-Schedules them
-
-Executes them concurrently using worker processes
-
-Simulates network conditions (latency, packet loss, failures)
-
-Tracks execution, logs, and results.
+## Current Features
+- Health check endpoint
+- Create job posting (POST /jobs)
+- List job postings (GET /jobs)
+- Swagger API documentation

@@ -17,10 +17,11 @@ def execute_job(job_id:UUID,repo:JobRepository):
         return
     job.state = JobState.RUNNING
     job.started_at = datetime.utcnow()
+    repo.update(job)
     logger.info(f"Job {job_id} started")
 
     try:
-        execution_time=random.randint(1,6)
+        execution_time=random.randint(10,16)
         if execution_time>JOB_TIMEOUT_SECONDS:
             raise TimeoutError("Job timed out")
         time.sleep(execution_time)
@@ -34,3 +35,5 @@ def execute_job(job_id:UUID,repo:JobRepository):
         job.state=JobState.FAILED
         job.finished_at=datetime.utcnow()
         logger.error(f"Job {job_id} failed: {str(e)}")
+
+    repo.update(job)

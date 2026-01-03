@@ -7,7 +7,7 @@ from uuid import UUID
 
 from app.schemas.job import Job,JobCreate,JobState
 from app.repository.job_repo import JobRepository
-from app.core.worker import executor, execute_job
+
 jobs_lock=Lock()
 
 router=APIRouter(prefix='/jobs',tags=["Jobs"])
@@ -33,8 +33,9 @@ def run_job(job_id: UUID):
             detail="Only PENDING jobs can be executed"
         )
 
-    executor.submit(execute_job, job_id, repo)
-    return {"message": "Job submitted for execution"}
+    job.state=JobState.QUEUED
+    repo.update(job)
+    return {"message": "Job queued"}
 
 @router.get("/",response_model=List[Job])
 def list_jobs():

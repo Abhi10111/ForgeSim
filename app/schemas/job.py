@@ -10,12 +10,14 @@ class JobCreate(BaseModel):
     company:str
     location:str
     description:Optional[str]=None
+    type:str
 
 class JobState(str, Enum):
     PENDING = "PENDING"
     RUNNING = "RUNNING"
     COMPLETED = "COMPLETED"
     FAILED = "FAILED"
+    QUEUED = "QUEUED"
     
 class Job(JobCreate):
     id:UUID

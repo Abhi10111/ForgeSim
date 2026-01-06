@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/playwright/python:latest
+FROM mcr.microsoft.com/playwright/python:v1.57.0-jammy 
 
 COPY docker/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
